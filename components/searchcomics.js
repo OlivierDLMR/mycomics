@@ -1,18 +1,29 @@
 import React from 'react';
-import { View, TextInput, Button } from 'react-native';
+import { StyleSheet, View, TextInput, Button, Text, FlatList } from 'react-native';
+import Comics from '../helpers/comicsData';
+import Comicsitem from './comicsitem';
+import { getComicsFromApiWithSearchedText } from '../APIMARVEL/apimarvel';
+
 
 class Searchcomics extends React.Component {
     render() {
         return (
-            <View style={{ marginTop: 20 }}>
-                <TextInput style={styles.textinput} placeholder='Titre du film'/>
-                <Button style={styles.textinput} title='Rechercher' onPress={() => {}}/>
+            <View style={styles.main_container}>
+                <TextInput style={styles.textinput} placeholder='Titre'/>
+                <Button title='Rechercher' onPress={() => this._loadComics()}/>
+
+                <FlatList
+                    data={Comics}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={({item}) => <Comicsitem Comics={item}/>}
+                />
             </View>
+            
         )
     }
 }
 
-const styles = {
+const styles = StyleSheet.create({
     textinput: {
         marginLeft: 5,
         marginRight: 5,
@@ -20,8 +31,12 @@ const styles = {
         borderColor: '#A01010',
         borderWidth: 1,
         paddingLeft: 5
+    },
+    main_container: {
+        flex: 1,
+        marginTop: 20
     }
-}
+}) 
 
 
 export default Searchcomics;
