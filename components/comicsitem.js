@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 class comicsitem extends React.Component {
     render() {
         const comics = this.props.Comics
+        console.log(Comics);
         return (
             <View style={styles.main_container}>
                 <Image

@@ -6,6 +6,16 @@ import { getComicsFromApiWithSearchedText } from '../APIMARVEL/apimarvel';
 
 
 class Searchcomics extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = { comics: [] }
+    }
+
+    _loadComics() {
+        getComicsFromApiWithSearchedText("start").then(data => this.setState({ comics: data.results }))
+    }
+    
     render() {
         return (
             <View style={styles.main_container}>
@@ -13,7 +23,7 @@ class Searchcomics extends React.Component {
                 <Button title='Rechercher' onPress={() => this._loadComics()}/>
 
                 <FlatList
-                    data={Comics}
+                    data={this.state.comics}
                     keyExtractor={(item) => item.id.toString()}
                     renderItem={({item}) => <Comicsitem Comics={item}/>}
                 />
